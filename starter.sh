@@ -1,9 +1,11 @@
 sudo apt install vim git ssh apache2 php libapache2-mod-php php-mysql mariadb-server zip
 
 sudo mkdir /srv/http
+sudo chown -R $HOME:www-data /srv/http
+sudo chmod -R 2750 /srv/http
 cd /srv/http/
 sudo git clone https://github.com/WordPress/WordPress.git
-cat > /etc/apache2/ports.config<<EOF
+cat > /etc/apache2/ports.conf<<EOF
 # If you just change the port or add more ports here, you will likely also
 # have to change the VirtualHost statement in
 # /etc/apache2/sites-enabled/000-default.conf
@@ -20,8 +22,6 @@ Listen 8080
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
-sudo chown -R $Home:www-data /srv/http
-sudo chmod -R 2750 /srv/http
 cat > /etc/apache2/sites-available/000-default.conf<<EOF
 
 <VirtualHost *:80>
@@ -296,21 +296,21 @@ IncludeOptional sites-enabled/*.conf
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet 
 EOF
 
-echo "nom du user:"
-read user_bdd
-echo "nom de  la base de données:"
-read name_bdd
-echo "mot de passe  de la base de donnée:"
-read passwd_bdd
+#echo "nom du user:"
+#read user_bdd
+#echo "nom de  la base de données:"
+#read name_bdd
+#echo "mot de passe  de la base de donnée:"
+#read passwd_bdd
 
 sudo systemctl reload apache2
 sudo mysql_secure_installation
 sudo mariadb 
-CREATE USER $user_bdd@localhost IDENTIFIED BY "$passwd_bdd";
-CREATE DATABASE `$name_bdd`;
-GRANT ALL PRIVILEGES ON `$name_bdd`.* TO $user_bdd@localhost;
-FLUSH PRIVILEGES;
-quit
+#CREATE USER $user_bdd@localhost IDENTIFIED BY "$passwd_bdd";
+#CREATE DATABASE `$name_bdd`;
+#GRANT ALL PRIVILEGES ON `$name_bdd`.* TO $user_bdd@localhost;
+#FLUSH PRIVILEGES;
+#quit
 #cd /srv/http/WordPress
 #cat > wp-config.php<<EOF
 cd /etc/php/7.4/apache2/
@@ -2266,7 +2266,7 @@ EOF
 sudo systemctl reload apache2
 sudo apt install php-fpm libapache2-mod-fcgid php-cgi
 sudo a2dismod php7.4
-sudo a2enmod fcgi proxy proxy_fcgi
+sudo a2enmod fcgid proxy proxy_fcgi
 cd /etc/php/7.4/fpm/pool.d
 sudo cp www.conf wordpress.conf
 cat > wordpress.conf <<EOF
@@ -2710,4 +2710,4 @@ pm.max_spare_servers = 3
 ;php_admin_value[memory_limit] = 32M
 EOF
 sudo systemctl reload apache2
-sudo systemctl reloas php7.4-fpm
+sudo systemctl reload php7.4-fpm
