@@ -5,7 +5,7 @@ sudo chown -R $HOME:www-data /srv/http
 sudo chmod -R 2750 /srv/http
 cd /srv/http/
 sudo git clone https://github.com/WordPress/WordPress.git
-cat > /etc/apache2/ports.conf<<EOF
+sudo cat > /etc/apache2/ports.conf<<EOF
 # If you just change the port or add more ports here, you will likely also
 # have to change the VirtualHost statement in
 # /etc/apache2/sites-enabled/000-default.conf
@@ -22,7 +22,7 @@ Listen 8080
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
-cat > /etc/apache2/sites-available/000-default.conf<<EOF
+sudo cat > /etc/apache2/sites-available/000-default.conf<<EOF
 
 <VirtualHost *:80>
 	# The ServerName directive sets the request scheme, hostname and port that
@@ -71,7 +71,7 @@ cat > /etc/apache2/sites-available/000-default.conf<<EOF
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
 
-cat > /etc/apache2/apache2.conf<<EOF
+sudo cat > /etc/apache2/apache2.conf<<EOF
 
 # This is the main Apache server configuration file.  It contains the
 # configuration directives that give the server its instructions.
@@ -314,7 +314,7 @@ sudo mariadb
 #cd /srv/http/WordPress
 #cat > wp-config.php<<EOF
 cd /etc/php/7.4/apache2/
-cat >php.ini<<EOF
+sudo cat >php.ini<<EOF
 [PHP]
 
 ;;;;;;;;;;;;;;;;;;;
