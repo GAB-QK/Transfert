@@ -1,10 +1,24 @@
-
-sudo apt install vim git ssh apache2 php libapache2-mod-php php-mysql mariadb-server zip
 ${APACHE_LOG_DIR}='${APACHE_LOG_DIR}'
 ${APACHE_RUN_DIR}='${APACHE_RUN_DIR}'
 ${APACHE_PID_FILE}='${APACHE_PID_FILE}'
 ${APACHE_RUN_USER}='${APACHE_RUN_USER}'
 ${APACHE_RUN_GROUP}='${APACHE_RUN_GROUP}'
+${foo}='${foo}'
+$argv='$argv'
+$argc='$argc'
+$php_errormsg='$php_errormsg'
+$_POST='$_POST'
+$_FILES='$_FILES'
+$_SESSION-'$_SESSION'
+$MYSQL_TCP_PORT='$MYSQL_TCP_PORT'
+$pool='$pool'
+$_ENV='$_ENV'
+$_SERVER='$_SERVER'
+$prefix='$prefix'
+$HOSTNAME='$HOSTNAME'
+$VARIABLEs='$VARIABLEs'
+
+sudo apt install vim git ssh apache2 php libapache2-mod-php php-mysql mariadb-server zip
 
 echo  "utilisateur: "
 read utilisateur
@@ -13,6 +27,8 @@ sudo chown -R $utilisateur:www-data /srv/http
 sudo chmod -R 2750 /srv/http
 cd /srv/http/
 sudo git clone https://github.com/WordPress/WordPress.git
+sudo chown $utilisateur:www-data ports.conf
+sudo chmod 2750 ports.conf
 sudo cat > /etc/apache2/ports.conf<<EOF
 # If you just change the port or add more ports here, you will likely also
 # have to change the VirtualHost statement in
@@ -30,6 +46,8 @@ Listen 8080
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
+sudo chown $utilisateur:www-data 000-default.conf
+sudo chmod 2750 000-default.conf
 sudo cat > /etc/apache2/sites-available/000-default.conf<<EOF
 
 <VirtualHost *:80>
@@ -78,7 +96,8 @@ sudo cat > /etc/apache2/sites-available/000-default.conf<<EOF
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
-
+sudo chown $utilisateur:www-data apache2.conf
+sudo chmod 2750 apache2.conf
 sudo cat > /etc/apache2/apache2.conf<<EOF
 
 # This is the main Apache server configuration file.  It contains the
@@ -246,7 +265,6 @@ Include ports.conf
 <Directory /srv/http>
 	Options Indexes FollowSymLinks
         AllowOverride None
-
         Require all granted
 </Directory>
 
@@ -310,14 +328,7 @@ EOF
 #read name_bdd
 #echo "mot de passe  de la base de donnée:"
 #read passwd_bdd
-${foo}='${foo}'
-$argv='$argv'
-$argc='$argc'
-$php_errormsg='$php_errormsg'
-$_POST='$_POST'
-$_FILES='$_FILES'
-$_SESSION-'$_SESSION'
-$MYSQL_TCP_PORT='$MYSQL_TCP_PORT'
+
 sudo systemctl reload apache2
 sudo mysql_secure_installation
 sudo mariadb 
@@ -330,6 +341,8 @@ sudo mariadb
 #cd /srv/http/WordPress
 #cat > wp-config.php<<EOF
 cd /etc/php/7.4/apache2/
+sudo chown $utilisateur:www-data php.ini
+sudo chmod 2750 php.ini
 sudo cat >php.ini<<EOF
 [PHP]
 
@@ -2278,12 +2291,7 @@ ldap.max_links = -1
 ; List of headers files to preload, wildcard patterns allowed.
 ;ffi.preload=
 EOF
-$pool='$pool'
-$_ENV='$_ENV'
-$_SERVER='*$_SERVER'
-$prefix='$prefix'
-$HOSTNAME='$HOSTNAME'
-$VARIABLEs='$VARIABLEs'
+
 sudo systemctl reload apache2
 sudo apt install php-fpm libapache2-mod-fcgid php-cgi
 sudo a2dismod php7.4
