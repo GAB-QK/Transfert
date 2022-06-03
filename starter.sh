@@ -1,4 +1,11 @@
+
 sudo apt install vim git ssh apache2 php libapache2-mod-php php-mysql mariadb-server zip
+${APACHE_LOG_DIR}='${APACHE_LOG_DIR}'
+${APACHE_RUN_DIR}='${APACHE_RUN_DIR}'
+${APACHE_PID_FILE}='${APACHE_PID_FILE}'
+${APACHE_RUN_USER}='${APACHE_RUN_USER}'
+${APACHE_RUN_GROUP}='${APACHE_RUN_GROUP}'
+
 echo  "utilisateur: "
 read utilisateur
 sudo mkdir /srv/http
@@ -303,7 +310,14 @@ EOF
 #read name_bdd
 #echo "mot de passe  de la base de donnée:"
 #read passwd_bdd
-
+${foo}='${foo}'
+$argv='$argv'
+$argc='$argc'
+$php_errormsg='$php_errormsg'
+$_POST='$_POST'
+$_FILES='$_FILES'
+$_SESSION-'$_SESSION'
+$MYSQL_TCP_PORT='$MYSQL_TCP_PORT'
 sudo systemctl reload apache2
 sudo mysql_secure_installation
 sudo mariadb 
@@ -2264,7 +2278,12 @@ ldap.max_links = -1
 ; List of headers files to preload, wildcard patterns allowed.
 ;ffi.preload=
 EOF
-
+$pool='$pool'
+$_ENV='$_ENV'
+$_SERVER='*$_SERVER'
+$prefix='$prefix'
+$HOSTNAME='$HOSTNAME'
+$VARIABLEs='$VARIABLEs'
 sudo systemctl reload apache2
 sudo apt install php-fpm libapache2-mod-fcgid php-cgi
 sudo a2dismod php7.4
