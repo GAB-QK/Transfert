@@ -2269,7 +2269,7 @@ sudo a2dismod php7.4
 sudo a2enmod fcgid proxy proxy_fcgi
 cd /etc/php/7.4/fpm/pool.d
 sudo cp www.conf wordpress.conf
-cat > wordpress.conf <<EOF
+sudo cat > wordpress.conf <<EOF
 ; Start a new pool named 'www'.
 ; the variable $pool can be used in any directive and will be replaced by the
 ; pool name ('www' here)
