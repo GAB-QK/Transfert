@@ -306,9 +306,10 @@ EOF
 sudo systemctl reload apache2
 sudo mysql_secure_installation
 sudo mariadb 
-#CREATE USER $user_bdd@localhost IDENTIFIED BY "$passwd_bdd";
-#CREATE DATABASE `$name_bdd`;
-#GRANT ALL PRIVILEGES ON `$name_bdd`.* TO $user_bdd@localhost;
+###########################################################################################################
+#CREATE USER gabriel@localhost IDENTIFIED BY "password";
+#CREATE DATABASE `wordpress`;
+#GRANT ALL PRIVILEGES ON `wordpress`.* TO gabriel@localhost;
 #FLUSH PRIVILEGES;
 #quit
 #cd /srv/http/WordPress
