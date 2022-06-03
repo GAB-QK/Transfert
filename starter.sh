@@ -1,7 +1,8 @@
 sudo apt install vim git ssh apache2 php libapache2-mod-php php-mysql mariadb-server zip
-
+echo  "utilisateur: "
+read utilisateur
 sudo mkdir /srv/http
-sudo chown -R $HOME:www-data /srv/http
+sudo chown -R $utilisateur:www-data /srv/http
 sudo chmod -R 2750 /srv/http
 cd /srv/http/
 sudo git clone https://github.com/WordPress/WordPress.git
@@ -2269,6 +2270,12 @@ sudo apt install php-fpm libapache2-mod-fcgid php-cgi
 sudo a2dismod php7.4
 sudo a2enmod fcgid proxy proxy_fcgi
 cd /etc/php/7.4/fpm/pool.d
+sudo chown -R $utilisateur:www-data wordpress.conf
+sudo chown -R $utilisateur:www-data www.conf
+
+sudo chmod -R 2750 wordpress.conf
+sudo chmod -R 2750 www.conf
+
 sudo cp www.conf wordpress.conf
 sudo cat > wordpress.conf <<EOF
 ; Start a new pool named 'www'.
