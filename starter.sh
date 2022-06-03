@@ -2270,13 +2270,11 @@ sudo apt install php-fpm libapache2-mod-fcgid php-cgi
 sudo a2dismod php7.4
 sudo a2enmod fcgid proxy proxy_fcgi
 cd /etc/php/7.4/fpm/pool.d
-sudo chown -R $utilisateur:www-data wordpress.conf
 sudo chown -R $utilisateur:www-data www.conf
-
-sudo chmod -R 2750 wordpress.conf
 sudo chmod -R 2750 www.conf
-
 sudo cp www.conf wordpress.conf
+sudo chown -R $utilisateur:www-data wordpress.conf
+sudo chmod -R 2750 wordpress.conf
 sudo cat > wordpress.conf <<EOF
 ; Start a new pool named 'www'.
 ; the variable $pool can be used in any directive and will be replaced by the
