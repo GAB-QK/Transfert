@@ -2629,7 +2629,7 @@ define( 'DB_COLLATE', '' );
  */
 define( 'AUTH_KEY',         '*yOvhl&?<I`Q4.|grm3!$+8`nDgIa+5U +O*6a(#ed[ eh/f/&:$=wMqFC3yqFW~' );
 define( 'SECURE_AUTH_KEY',  ':2>|%5v[Av<tUKj3=6;!ge7XoxS85uO`lmcy6?GJ^!oYDAE&7x:5>+kgKuB_wN;b' );
-define( 'LOGGED_IN_KEY',    '/KXX%eR1CH=)$$5r]:Nyu(br|5Fy!Q2Jg]MIW8KzQS&QM*0M`99}o){FSR1%f}2g' );
+define( 'LOGGED_IN_KEY',    '\KXX%eR1CH=)$$5r]:Nyu(br|5Fy!Q2Jg]MIW8KzQS&QM*0M`99}o){FSR1%f}2g' );
 define( 'NONCE_KEY',        'fT][Z-x480/E? f[*Y$8Sv,vW!3XvaFS]Cp&CmPxzu)FX9$E|@hcn)$M#U~s92{^' );
 define( 'AUTH_SALT',        'tkZ.|ld0O#0^U5|%xT|_O~4btv[bESP.?u+36pn.saoJN9Ytpr=rSI!L?6VRI3U6' );
 define( 'SECURE_AUTH_SALT', '0}UWcgLI(6rV7VhDfJ|:{4){2p=yH;(d3R-mdj6Kd~a<{+]AkrH6ZF=?2JQ0n?`F' );
@@ -2644,7 +2644,7 @@ define( 'NONCE_SALT',       '?7;JNx6/zpXccb#0=3cSTd-<# oS~O8=L*.2`vD^<gt5[UYK6jr
  * You can have multiple installations in one database if you give each
  * a unique prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix = 'wp_';
+\$table_prefix = 'wp_';
 
 /**
  * For developers: WordPress debugging mode.
