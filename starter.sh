@@ -27,9 +27,10 @@ sudo chown -R $utilisateur:www-data /srv/http
 sudo chmod -R 2750 /srv/http
 cd /srv/http/
 sudo git clone https://github.com/WordPress/WordPress.git
+cd /etc/apache2/
 sudo chown $utilisateur:www-data ports.conf
 sudo chmod 2750 ports.conf
-sudo cat > /etc/apache2/ports.conf<<EOF
+sudo cat > ports.conf<<EOF
 # If you just change the port or add more ports here, you will likely also
 # have to change the VirtualHost statement in
 # /etc/apache2/sites-enabled/000-default.conf
@@ -46,6 +47,7 @@ Listen 8080
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
+cd /etc/apache2/sites-available/
 sudo chown $utilisateur:www-data 000-default.conf
 sudo chmod 2750 000-default.conf
 sudo cat > /etc/apache2/sites-available/000-default.conf<<EOF
@@ -96,9 +98,10 @@ sudo cat > /etc/apache2/sites-available/000-default.conf<<EOF
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOF
+cd /etc/apache2/
 sudo chown $utilisateur:www-data apache2.conf
 sudo chmod 2750 apache2.conf
-sudo cat > /etc/apache2/apache2.conf<<EOF
+sudo cat > apache2.conf<<EOF
 
 # This is the main Apache server configuration file.  It contains the
 # configuration directives that give the server its instructions.
@@ -291,7 +294,6 @@ AccessFileName .htaccess
 	Require all denied
 </FilesMatch>
 
-
 #
 # The following directives define some format nicknames for use with
 # a CustomLog directive.
@@ -331,8 +333,8 @@ EOF
 
 sudo systemctl reload apache2
 sudo mysql_secure_installation
-sudo mariadb 
-###########################################################################################################
+sudo mariadb
+
 #CREATE USER gabriel@localhost IDENTIFIED BY "password";
 #CREATE DATABASE `wordpress`;
 #GRANT ALL PRIVILEGES ON `wordpress`.* TO gabriel@localhost;
@@ -2844,5 +2846,6 @@ pm.max_spare_servers = 3
 ;php_admin_flag[log_errors] = on
 ;php_admin_value[memory_limit] = 32M
 EOF
+
 sudo systemctl reload apache2
 sudo systemctl reload php7.4-fpm
