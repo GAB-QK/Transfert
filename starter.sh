@@ -339,6 +339,7 @@ sudo mariadb
 #FLUSH PRIVILEGES;
 #quit
 cd /srv/http/WordPress
+touch wp-config.php
 sudo chown $utilisateur:www-data wp-config.php
 sudo chmod 2750 wp-config.php
 cat > wp-config.php<<EOF
