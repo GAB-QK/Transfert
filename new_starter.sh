@@ -1,13 +1,14 @@
-sudo apt install vim git ssh apache2 php libapache2-mod-php php-mysql mariadb-server zip mysql_secure_installation
+sudo apt install vim git ssh apache2 php libapache2-mod-php php-mysql mariadb-server zip
 
 echo "utilisateur"
 read utilisateur
 
-sudo mkdir /srv/http
-cd /srv/http/
+cd /srv
+sudo mkdir http
+cd http
 sudo chown -R $utilisateur:www-data /srv/http/
 sudo chmod -R 2750 /srv/http/ 
-git clone clone https://github.com/WordPress/WordPress.git
+git clone https://github.com/WordPress/WordPress.git
 cd /etc/apache2/
 sudo chown -R $utilisateur:www-data /etc/apache2/ports.conf
 sudo chmod -R 2750 /etc/apache2/ports.conf
@@ -116,6 +117,7 @@ IncludeOptional sites-enabled/*.conf
 EOF
 sudo systemctl reload apache2
 sudo mariadb
+sudo mysql_sequre_installation
 sleep 1
 cd /etc/php/7.4/apache2
 sudo chown $utilisateur:www-data php.ini
@@ -2072,7 +2074,7 @@ sudo systemctl reload apache2
 sudo apt install php-fpm libapache2-mod-fcgid php-cgi
 
 sudo a2dismod php7.4
-sudo a2enmod fcgi proxy proxy_fcgi
+sudo a2enmod fcgid proxy proxy_fcgi
 
 cd /etc/apache2/sites-available/
 sudo chown $utilisateur:www-data 000-default.conf
@@ -2570,6 +2572,109 @@ pm.max_spare_servers = 3
 EOF
 sudo systemctl reload apache2
 sudo systemctl reload php7.4-fpm
+cd /srv/http/WordPress
+sudo touch wp-config.php
+sudo chown $utilisateur:www-data wp-config.php
+sudo chmod 2750 wp-config.php
+sudo cat > wp-config.php<<EOF
+<?php
+/**
+ * The base configuration for WordPress
+ *
+ * The wp-config.php creation script uses this file during the installation.
+ * You don't have to use the web site, you can copy this file to "wp-config.php"
+ * and fill in the values.
+ *
+ * This file contains the following configurations:
+ *
+ * * Database settings
+ * * Secret keys
+ * * Database table prefix
+ * * ABSPATH
+ *
+ * @link https://wordpress.org/support/article/editing-wp-config-php/
+ *
+ * @package WordPress
+ */
+
+// ** Database settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'wordpress' );
+
+/** Database username */
+define( 'DB_USER', 'gabriel' );
+
+/** Database password */
+define( 'DB_PASSWORD', 'password' );
+
+/** Database hostname */
+define( 'DB_HOST', 'localhost' );
+
+/** Database charset to use in creating database tables. */
+define( 'DB_CHARSET', 'utf8mb4' );
+
+/** The database collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
+
+/**#@+
+ * Authentication unique keys and salts.
+ *
+ * Change these to different unique phrases! You can generate these using
+ * the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}.
+ *
+ * You can change these at any point in time to invalidate all existing cookies.
+ * This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+define( 'AUTH_KEY',         '*yOvhl&?<I`Q4.|grm3!$+8`nDgIa+5U +O*6a(#ed[ eh/f/&:$=wMqFC3yqFW~' );
+define( 'SECURE_AUTH_KEY',  ':2>|%5v[Av<tUKj3=6;!ge7XoxS85uO`lmcy6?GJ^!oYDAE&7x:5>+kgKuB_wN;b' );
+define( 'LOGGED_IN_KEY',    '/KXX%eR1CH=)$$5r]:Nyu(br|5Fy!Q2Jg]MIW8KzQS&QM*0M`99}o){FSR1%f}2g' );
+define( 'NONCE_KEY',        'fT][Z-x480/E? f[*Y$8Sv,vW!3XvaFS]Cp&CmPxzu)FX9$E|@hcn)$M#U~s92{^' );
+define( 'AUTH_SALT',        'tkZ.|ld0O#0^U5|%xT|_O~4btv[bESP.?u+36pn.saoJN9Ytpr=rSI!L?6VRI3U6' );
+define( 'SECURE_AUTH_SALT', '0}UWcgLI(6rV7VhDfJ|:{4){2p=yH;(d3R-mdj6Kd~a<{+]AkrH6ZF=?2JQ0n?`F' );
+define( 'LOGGED_IN_SALT',   '!#>r+.+6`p0!yBll%jc^~*[PqIq, rhyPW6!i2=^Lb_LSLPBuMKx8Rw:1H#]^*8$' );
+define( 'NONCE_SALT',       '?7;JNx6/zpXccb#0=3cSTd-<# oS~O8=L*.2`vD^<gt5[UYK6jr:C^p=TZBUCF{D' );
+
+/**#@-*/
+
+/**
+ * WordPress database table prefix.
+ *
+ * You can have multiple installations in one database if you give each
+ * a unique prefix. Only numbers, letters, and underscores please!
+ */
+$table_prefix = 'wp_';
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ *
+ * For information on other constants that can be used for debugging,
+ * visit the documentation.
+ *
+ * @link https://wordpress.org/support/article/debugging-in-wordpress/
+ */
+define( 'WP_DEBUG', false );
+
+/* Add any custom values between this line and the "stop editing" line. */
+
+
+
+/* That's all, stop editing! Happy publishing. */
+
+/** Absolute path to the WordPress directory. */
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
+
+/** Sets up WordPress vars and included files. */
+require_once ABSPATH . 'wp-settings.php';
+EOF
+
 echo " 
 
 
